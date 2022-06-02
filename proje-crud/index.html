@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vue JS - Ekle-Düzenle-Sil</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../assets/css/app.css" />
+  </head>
+  <body class="p-5">
+    <div id="app">
+      <button class="btn btn-info float-left" @click="yeniKullaniciEkle">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+      </button>
+
+      <div
+        class="modal fade"
+        tabindex="-1"
+        role="dialog"
+        id="kullaniciEkleModal"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Kullanıcı</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form @submit.prevent="true">
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">isim</label>
+                  <div class="col-sm-10">
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="aktifKullanici.isim"
+                      placeholder="isim"
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">rol</label>
+                  <div class="col-sm-10">
+                    <select v-model="aktifKullanici.rol" class="form-control">
+                      <option value="">Seçiniz</option>
+                      <option>Admin</option>
+                      <option>User</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-info"
+                @click="kullaniciKaydet"
+              >
+                <i class="fa fa-check"></i>
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                <i class="fa fa-remove"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h1 class="text-center">
+        <small
+          ><span class="badge badge-info" style="border-radius: 10px"
+            ><strong>Kullanıcı Sayısı :</strong> {{kullanicilar.length}}
+            kullanıcı</span
+          ></small
+        >
+      </h1>
+      <hr />
+      <table class="table table-bordered table-hover">
+        <tr class="bg-warning text-black">
+          <th>index</th>
+          <th>id</th>
+          <th>isim</th>
+          <th>rol</th>
+          <th>İşlem</th>
+        </tr>
+        <tr v-for="(kullanici,index) in kullanicilar">
+          <td>{{index}}</td>
+          <td>{{kullanici.id}}</td>
+          <td>{{kullanici.isim}}</td>
+          <td>{{kullanici.rol}}</td>
+          <td>
+            <a
+              class="btn btn-danger btn-sm"
+              href="javascript:"
+              @click="kullaniciSil(index)"
+            >
+              <i class="fa fa-remove"></i>
+            </a>
+
+            <a
+              class="btn btn-danger btn-sm"
+              href="javascript:"
+              @click="kullaniciSil2(kullanici.id)"
+            >
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </a>
+            <a
+              class="btn btn-warning btn-sm"
+              href="javascript:"
+              @click="kullaniciDuzenle(index)"
+            >
+              <i class="fa fa-pencil"></i>
+            </a>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <script src="../assets/js/vue.js"></script>
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
